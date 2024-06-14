@@ -1,0 +1,1 @@
+export const baseUrl="https://console.firebase.google.com/project/prueba-base-fddc2/database/prueba-base-fddc2-default-rtdb/data/~2F?hl=es"

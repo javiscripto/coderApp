@@ -1,0 +1,99 @@
+[
+    {
+      "id": "3cti4VrfLCAcqlQhP96B",
+      "category": "amplificadores",
+      "description": "Este amplificador está diseñado para funcionar como el eslabón perdido entre el mundo análogo y el digital.",
+      "img": "https://overdrive.cl/wp-content/uploads/2020/08/ENGL-Ironball-E606SE-Special-Edition-front.jpg",
+      "brand": "ENGL Ironball E606SE Special Edition",
+      "price": 999000
+    },
+    {
+      "id": "8r4o8GvlT5Xtspf4afNz",
+      "category": "amplificadores",
+      "description": "Esta reedición del combo 2×12” tiene el legendario sonido de blues profundo creado por el rectificador a tubos GZ34, similar al JTM45.",
+      "img": "https://overdrive.cl/wp-content/uploads/2022/02/Marshall-1962-Bluesbreaker-30watt-2x12-Combo-front.jpg",
+      "brand": "Marshall 1962 Bluesbreaker 30-watt 2x12inch Combo",
+      "price": 1259000
+    },
+    {
+      "id": "CQx9ka9Z1Nu3cSl4E6EQ",
+      "category": "guitarras",
+      "description": "un aspecto elegante, tallado distintivo y un conjunto de características notables.",
+      "img": "https://overdrive.cl/wp-content/uploads/2023/01/Solar-Guitars-A1.6AAN-Alder-Aged-Natural-Matte-body.jpg",
+      "brand": "Solar Guitars A1.6AAN",
+      "price": 1189000
+    },
+    {
+      "id": "LSAUZvdvqhN9n1MZOab0",
+      "category": "guitarras",
+      "description": "un modelo elegante adornado con una llamativa colección de funciones exclusivas para el fanático exigente de Squier.",
+      "img": "https://www.fender.cl/media/catalog/product/cache/1/image/800x800/9df78eab33525d08d6e5fb8d27136e95/g/e/ge659_0379410515v1.jpg",
+      "brand": "Squier Stratocaster® Gold Edition 40th Anniversary",
+      "price": 700000
+    },
+    {
+      "id": "OHIjEud2bleBQWGR7rs9",
+      "category": "guitarras",
+      "description": "construido con los mejores materiales: Brazo bolt-on de 5 piezas de caoba/maple; Diapasón de ébano; 24 trastes tamaño jumbo.",
+      "img": "https://overdrive.cl/wp-content/uploads/2021/10/Legator-G6P-BLK-Ghost-P-series-6-string-Black-body.jpg",
+      "brand": "Legator G6P-BLK Ghost P series",
+      "price": 945000
+    },
+    {
+      "id": "OHOmJMjXgwyflg1C4IJB",
+      "category": "amplificadores",
+      "description": "una enorme gama de sonidos calidos del blues hasta overdrives poderosos de alta ganancia, todo en un solo equipo",
+      "img": "https://overdrive.cl/wp-content/uploads/2020/08/Victory-Amplification-RK50-Richie-Kotzen-front.jpg",
+      "brand": "Victory Amplification RK50 Richie Kotzen Signature",
+      "price": 120000
+    },
+    {
+      "id": "S5aMbxyVlWOmS4jsYEE3",
+      "category": "guitarras",
+      "description": "Rápidas, mortales y asequibles, las guitarras Jackson® Serie JS son un modelo legendario al mejor precio",
+      "img": "https://overdrive.cl/wp-content/uploads/2021/08/Jackson-JS-Series-Dinky-Arch-Top-JS32Q-DKA-Transparent-Green-Burst-AM-body.jpg",
+      "brand": "Jackson JS Series Dinky Arch Top JS32Q DKA",
+      "price": 399000
+    },
+    {
+      "id": "gAMc82trSyR08YGnZrrt",
+      "category": "amplificadores",
+      "description": "capaz de producir muchos estilos de música, desde blues y rock clásico, hasta el heavy metal con tan solo ajustar los controles de ganancia..",
+      "img": "https://overdrive.cl/wp-content/uploads/2020/08/Friedman-Amplification-PT-20.jpg",
+      "brand": "Friedman Amplification PT-20 Pink Taco",
+      "price": 1500000
+    },
+    {
+      "id": "m0XfKir3zHlKShXDie0N",
+      "category": "guitarras",
+      "description": "una guitarra versatil de inspiracion vintage que consigue unos ricos y limpios sonidos gracias a su hardware",
+      "img": "https://overdrive.cl/wp-content/uploads/2023/05/PRS-Guitars-SE-Standard-McCarty-Singlecut-594-MT-Tobacco-Sunburst-body.jpg",
+      "brand": "PRS Guitars SE Standard McCarty Singlecut 594 MT",
+      "price": 743900
+    },
+    {
+      "id": "zZp1Vc8DZnEwnWaLoqbZ",
+      "category": "guitarras",
+      "description": "un modelo soñado y pensado para producir sonidos de alta ganancia con un cuerpo de diseño robusto",
+      "img": "https://overdrive.cl/wp-content/uploads/2021/10/Jackson-JS-Series-Rhoads-JS32-Satin-Gray-AM-body.jpg",
+      "brand": "Jackson JS Series Rhoads JS32",
+      "price": 455000
+    },
+    {
+      "id": "3cti4VrfLCAcqlQhP954",
+      "category": "pedales",
+      "description": "El pedal Powerball está basado en el canal Lead2 del Engl Powerball II, recreando las etapas de ganancia del amplificador. True bypass y completamente análogo, los componentes especialmente seleccionados del pedal ofrecen un nivel particularmente alto de calidad de sonido",
+      "img": "https://overdrive.cl/wp-content/uploads/2020/08/ENGL-Powerball-EP645-front.jpg",
+      "brand": "ENGL Powerball Pedal EP645",
+      "price": 199990
+    },
+    {
+      "id": "3cti4VrfLCAcqlQhq987",
+      "category": "accesorios",
+      "description": "Cable de audio para instrumento protegido, con 1 conductor CS-INST1.K silencioso, duradero y confiable",
+      "img": "https://overdrive.cl/wp-content/uploads/2020/08/ProCo-Sound-StageMASTER-SEG-Cable-de-instrumento-3m-1024x1024.jpg",
+      "brand": "StageMASTER SEG-10 Q/Q Cable de Instrumento 3m",
+      "price": 9990
+    }
+  ]
+  

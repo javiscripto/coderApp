@@ -1,0 +1,72 @@
+{
+  "expo": {
+    "name": "react-navigation-app",
+    "slug": "react-navigation-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts":[
+            {
+            "expoFontName":"Calistoga",
+            "fontFamily":"Calistoga-Regular",
+            "file":"./assets/fonts/Calistoga-Regular.ttf"
+            },
+            {
+            "expoFontName":"Roboto-Black",
+            "fontFamily":"Roboto-Black",
+            "file":"./assets/fonts/Roboto-Black.ttf"
+          },{
+            "expoFontName":"Roboto-Bold",
+            "fontFamily":"Roboto-Bold",
+            "file":"./assets/fonts/Roboto-Bold.ttf"
+          },
+          {
+            "expoFontName":"Roboto-Italic",
+            "fontFamily":"Roboto-Italic",
+            "file":"./assets/fonts/Roboto-Italic.ttf"
+          },
+          {
+            "expoFontName":"Roboto-Medium",
+            "fontFamily":"Roboto-Medium",
+            "file":"./assets/fonts/Roboto-Medium.ttf"
+          },
+          {
+            "expoFontName":"Roboto-Thin",
+            "fontFamily":"Roboto-Thin",
+            "file":"./assets/fonts/Roboto-Thin.ttf"
+          },
+          {
+            "expoFontName":"Roboto-Light",
+            "fontFamily":"Roboto-Light",
+            "file":"./assets/fonts/Roboto-Light.ttf"
+          }
+          ]
+
+        }
+      ]
+      
+    ]
+  }
+}
