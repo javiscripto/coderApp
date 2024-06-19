@@ -1,14 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, FlatList, View } from 'react-native';
+import { StyleSheet, Text, FlatList, View, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { CartItem } from '../components/cartItem';
+import { usePostOrderMutation } from '../services/shopService';
+import { useDispatch } from 'react-redux';
+import { deleteCart } from '../features/cartSlice';
+
+import {Loader} from "../components/loader"
 
 function CartStack() {
   const cart = useSelector(state => state.cart.value.items);
   const total = useSelector(state => state.cart.value.total);
 
+  // handler enviar orden a la db 
+  const [triggerPOST, {isLoading}] = usePostOrderMutation();
+  const dispatch=useDispatch()
+ 
 
+
+
+  const handlerConfirmOrderPress = async () => {
+    const response = await triggerPOST({ cart, total });
+
+    if ( response.data) {
+      dispatch(deleteCart());
+    } else {
+      console.error('Error al confirmar la orden');
+    }
+  }
+
+
+  //----------------
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Text style={styles.title}>carrito de compras</Text>
@@ -18,12 +41,11 @@ function CartStack() {
         </View>
       ) : (
         <View style={styles.cart}>
-          {/* <View style={styles.header}>
-            <Text>Producto</Text>
-            <Text>Precio</Text>
-            <Text>Cantidad</Text>
-            <Text>total</Text>
-          </View> */}
+
+          {isLoading && (
+            <Loader/>
+          )}
+
           <FlatList
             contentContainerStyle={styles.flatlist}
             data={cart}
@@ -39,9 +61,13 @@ function CartStack() {
             <Text >
               ${total}
             </Text>
+            {cart.length > 0 && (
+              <Pressable style={styles.button} onPress={handlerConfirmOrderPress}>
+                <Text style={styles.buttonText}>Confirmar la compra</Text>
+              </Pressable>
+            )}
+
           </View>
-
-
 
         </View>
 
@@ -78,9 +104,21 @@ const styles = StyleSheet.create({
   flatlist: {
     gap: 16,
   },
-  total:{
-    flexDirection:"row",
-    gap:16,
-    alignSelf:"stretch",
+  total: {
+    flexDirection: "row",
+    gap: 16,
+    alignItems: "center",
+    alignSelf: "auto",
+  },
+  buttonText: {
+    fontFamily: 'Roboto-Bold',
+    fontSize: 16,
+    color: '#fff',
+  },
+  button: {
+    backgroundColor: '#d62828',
+    margin: 16,
+    padding: 16,
+    borderRadius: 8,
   },
 });

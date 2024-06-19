@@ -34,12 +34,15 @@ export const cartSlice= createSlice({
             );
             state.value.total -= removedProduct.price * removedProduct.quantity;
         },
+        deleteCart:(state)=>{
+            state.value.items=[];
+        }
         
 
     }
 });
 
 
-export const {addProduct, deleteProductById } = cartSlice.actions
+export const {addProduct, deleteProductById , deleteCart } = cartSlice.actions
 
 export default cartSlice.reducer
