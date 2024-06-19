@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ItemCard from '../components/itemCard';
 import SearchInput from '../components/searchInput';
-import { setCategorySelected } from '../features/shopSlice';
+import { setCategorySelected, setProducts } from '../features/shopSlice';
+import { useGetProductsQuery } from '../services/shopService';
 
 function ItemList() {
     const { navigate } = useNavigation();
@@ -21,6 +22,15 @@ function ItemList() {
     useEffect(() => {
         dispatch(setCategorySelected(category));
     }, [category, dispatch]);
+
+    // Obtener los productos desde la API
+    const { data: products, error, isLoading } = useGetProductsQuery();
+
+    useEffect(() => {
+        if (products) {
+            dispatch(setProducts(products));
+        }
+    }, [products, dispatch]);
 
     // Obtener los productos filtrados del estado global
     const filteredProducts = useSelector((state) => state.shop.filteredProduct);
@@ -48,21 +58,20 @@ function ItemList() {
 
     return (
         <SafeAreaView style={styles.container}>
-
             <SearchInput
                 onChangeText={handlerSearch}
                 placeholder="Buscar producto en la categoria..."
                 value={productTitle}
             />
 
+            {isLoading && <Text>Cargando productos...</Text>}
+            {error && <Text>Error al cargar productos</Text>}
 
             {searchResults && searchResults.length === 0 ? (
                 <Text>
                     No se ha encontrado el producto "{productTitle}"
                 </Text>
             ) : null}
-
-
 
             <FlatList
                 initialNumToRender={10}
@@ -76,7 +85,6 @@ function ItemList() {
                     />
                 )}
             />
-
         </SafeAreaView>
     );
 }

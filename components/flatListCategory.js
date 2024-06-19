@@ -1,22 +1,37 @@
-import React from 'react';
-import { FlatList, TouchableOpacity, Text , StyleSheet} from 'react-native';
+import React, { useEffect } from 'react';
+import { FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation  } from '@react-navigation/native';
-import { setCategorySelected } from '../features/shopSlice';
+import { useNavigation } from '@react-navigation/native';
+import { setCategorySelected, setCategories } from '../features/shopSlice';
 
+import { useGetCategoriesQuery } from '../services/shopService';
 
 export const FlatListCategory = () => {
+    const { navigate } = useNavigation();
+    const dispatch = useDispatch();
 
-    const { navigate } = useNavigation()
+    const { data: categoriesData, error, isLoading } = useGetCategoriesQuery();
 
-    const categories = useSelector((state) => state.shop.categories)
-    const dispatch = useDispatch()
-  
+    useEffect(() => {
+        if (categoriesData) {
+            dispatch(setCategories(categoriesData));
+        }
+    }, [categoriesData, dispatch]);
+
+    const categories = useSelector((state) => state.shop.categories);
+
     const handleCategoryPress = (category) => {
-        dispatch(setCategorySelected(category))
-        navigate("ItemList", { category })
+        dispatch(setCategorySelected(category));
+        navigate("ItemList", { category });
     };
 
+    if (isLoading) {
+        return <Text>Cargando categorías...</Text>;
+    }
+
+    if (error) {
+        return <Text>Error al cargar categorías</Text>;
+    }
 
     return (
         <FlatList
@@ -30,9 +45,8 @@ export const FlatListCategory = () => {
                 </TouchableOpacity>
             )}
         />
-    )
+    );
 };
-
 
 const styles = StyleSheet.create({
     home: {
@@ -43,20 +57,18 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         gap: 16,
         justifyContent: "space-evenly"
-
     },
     categoryTitle: {
         fontFamily: "Roboto-Bold",
         textAlign: "center",
-        fontSize:8,
+        fontSize: 8,
     },
     category: {
         //backgroundColor: "orange",
         width: 80,
-        height:40,
+        height: 40,
         justifyContent: "center",
         padding: 8,
         borderRadius: 25
-
     }
-})
+});
