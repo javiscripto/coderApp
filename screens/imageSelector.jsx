@@ -52,7 +52,6 @@ export default function ImageSelector() {
 
             if (!result.canceled) {
                 setImage(`data:image/jpeg;base64,${result.assets[0].base64}`);
-                console.log(image)
             }
 
         } catch (error) {
