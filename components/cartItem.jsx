@@ -1,75 +1,23 @@
-import React , {useState} from 'react'
+import React  from 'react'
 import {  StyleSheet, View , Text, Pressable} from 'react-native'
 import { useDispatch } from 'react-redux';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomToast from './alerts/customToast';
 import { deleteProductById } from '../features/cartSlice';
 
 
 export const CartItem = ({
     img, brand, price, quantity, id
 }) => {
-    const [toastVisible, setToastVisible] = useState(false);
-    const [toastMessage, setToastMessage] = useState('');
+    
     const dispatch= useDispatch();
 
     const handleDeletePress= ( productId)=>{
-        const brandOfProduct=brand
-        showToast(`se ha eliminado el producto ${brandOfProduct} de tu carrito`)
         dispatch(deleteProductById(productId));
         
     };
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-  const showToast = (message) => {
-        setToastMessage(message);
-        setToastVisible(true);
-    };
     const totalItem= price*quantity
 
     return (
@@ -96,11 +44,6 @@ export const CartItem = ({
             <AntDesign name="delete" size={16} color="black" />
             </Pressable>
 
-            <CustomToast
-                visible={toastVisible}
-                message={toastMessage}
-                onHide={() => setToastVisible(false)}
-            />
         </View>
     )
 };
