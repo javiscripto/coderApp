@@ -9,6 +9,7 @@ import ItemCard from '../components/itemCard';
 import SearchInput from '../components/searchInput';
 import { setCategorySelected, setProducts } from '../features/shopSlice';
 import { useGetProductsQuery } from '../services/shopService';
+import { Loader } from '../components/loader';
 
 function ItemList() {
     const { navigate } = useNavigation();
@@ -58,33 +59,36 @@ function ItemList() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <SearchInput
-                onChangeText={handlerSearch}
-                placeholder="Buscar producto en la categoria..."
-                value={productTitle}
-            />
+            {isLoading ? (<Loader />) :
+                (
+                    <>
+                        <SearchInput
+                            onChangeText={handlerSearch}
+                            placeholder="Buscar producto en la categoria..."
+                            value={productTitle}
+                        />
 
-            {isLoading && <Text>Cargando productos...</Text>}
-            {error && <Text>Error al cargar productos</Text>}
+                        {searchResults && searchResults.length === 0 ? (
+                            <Text>
+                                No se ha encontrado el producto "{productTitle}"
+                            </Text>
+                        ) : null}
 
-            {searchResults && searchResults.length === 0 ? (
-                <Text>
-                    No se ha encontrado el producto "{productTitle}"
-                </Text>
-            ) : null}
+                        <FlatList
+                            initialNumToRender={10}
+                            contentContainerStyle={styles.flatlist}
+                            data={searchResults}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                                <ItemCard
+                                    {...item}
+                                    onPress={() => goToItemDetail(item.id)}
+                                />
+                            )}
+                        />
+                    </>)
+            }
 
-            <FlatList
-                initialNumToRender={10}
-                contentContainerStyle={styles.flatlist}
-                data={searchResults}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <ItemCard
-                        {...item}
-                        onPress={() => goToItemDetail(item.id)}
-                    />
-                )}
-            />
         </SafeAreaView>
     );
 }

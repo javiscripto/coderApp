@@ -1,25 +1,40 @@
+// Loader.jsx
+import React from 'react';
 import AnimatedLoader from "react-native-animated-loader";
-import { Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
-
-
-
-export const Loader =()=>{
-
-
-    return(
-        <AnimatedLoader
-        visible={visible}
-        overlayColor="rgba(255,255,255,0.75)"
-        animationStyle={styles.lottie}
-        speed={1}>
-            
-        </AnimatedLoader>
-    )
+export const Loader = () => {
+    return (
+        <View style={styles.container}>
+            <AnimatedLoader
+                visible={true}
+                overlayColor="rgba(255,255,255,0.75)"
+                animationStyle={styles.lottie}
+                speed={1}
+            >
+                <Text style={styles.text}>Cargando...</Text>
+            </AnimatedLoader>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-    lottie:{
-        
-    }
-})
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    lottie: {
+        width: 300,
+        height: 300,
+    },
+    text: {
+        marginTop: 20,
+        fontSize: 18,
+        fontFamily:"Roboto-Black",
+        color: '#333',
+        textAlign: 'center',
+    },
+});
+
+export default Loader;

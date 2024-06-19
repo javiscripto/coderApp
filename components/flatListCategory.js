@@ -3,6 +3,7 @@ import { FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { setCategorySelected, setCategories } from '../features/shopSlice';
+import Loader from './loader';
 
 import { useGetCategoriesQuery } from '../services/shopService';
 
@@ -25,26 +26,29 @@ export const FlatListCategory = () => {
         navigate("ItemList", { category });
     };
 
-    if (isLoading) {
-        return <Text>Cargando categorías...</Text>;
-    }
-
-    if (error) {
-        return <Text>Error al cargar categorías</Text>;
-    }
-
     return (
-        <FlatList
-            data={categories}
-            horizontal
-            contentContainerStyle={styles.flatlist}
-            keyExtractor={(item) => item}
-            renderItem={({ item }) => (
-                <TouchableOpacity style={styles.category} onPress={() => handleCategoryPress(item)}>
-                    <Text style={styles.categoryTitle}>{item}</Text>
-                </TouchableOpacity>
+        <>
+
+
+            {isLoading ? (<Loader />) : (
+
+                <FlatList
+                    data={categories}
+                    horizontal
+                    contentContainerStyle={styles.flatlist}
+                    keyExtractor={(item) => item}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity style={styles.category} onPress={() => handleCategoryPress(item)}>
+                            <Text style={styles.categoryTitle}>{item}</Text>
+                        </TouchableOpacity>
+                    )}
+                />
+
             )}
-        />
+
+        </>
+
+
     );
 };
 
