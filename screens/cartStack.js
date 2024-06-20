@@ -12,6 +12,8 @@ import {Loader} from "../components/loader"
 function CartStack() {
   const cart = useSelector(state => state.cart.value.items);
   const total = useSelector(state => state.cart.value.total);
+  const user= useSelector(state=>state.cart.value.user);
+
 
   // handler enviar orden a la db 
   const [triggerPOST, {isLoading}] = usePostOrderMutation();
@@ -19,9 +21,10 @@ function CartStack() {
  
 
 
-
   const handlerConfirmOrderPress = async () => {
-    const response = await triggerPOST({ cart, total });
+    const date = new Date().toLocaleString('es-ES',{timeZone: 'America/Santiago'})
+
+    const response = await triggerPOST({ cart, total, user , createdAt:date});
 
     if ( response.data) {
       dispatch(deleteCart());
