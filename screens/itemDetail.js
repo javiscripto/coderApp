@@ -46,7 +46,7 @@ function ItemDetail() {
                         {description}
                     </Text>
                     <Text style={styles.price}>
-                        {price}
+                        $ {price}
                     </Text>
                 </View>
                 <View style={styles.widget}>
@@ -72,13 +72,13 @@ const styles = StyleSheet.create({
         gap: 16,
     },
     productContainer: {
-        flex:1,
+        flex: 1,
         alignContent: "center",
         alignItems: "center",
-        justifyContent:"space-between",
+        justifyContent: "space-between",
         margin: 16,
         padding: 16,
-        objectFit:"cover"
+        objectFit: "cover"
     },
 
     title: {
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     description: {
         textAlign: "center"
     },
-    widget:{ 
-        alignSelf:"stretch",
+    widget: {
+        alignSelf: "stretch",
     }
 });
