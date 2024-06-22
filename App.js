@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Navigation } from './navigation/navigation';
+import { MainNavigation } from './navigation/navigation';
 import { Provider } from 'react-redux';
 import { store } from './store/index';
 import {useFonts} from "expo-font";
@@ -47,7 +47,7 @@ export default function App() {
       <SafeAreaProvider>
 
         <StatusBar backgroundColor='#fff' style='dark' animated={true} />
-        <Navigation />
+        <MainNavigation />
       </SafeAreaProvider>
     </Provider>
 
