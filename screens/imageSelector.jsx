@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet, Image, Pressable, Alert, Button } from 'react-native'
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../features/authSlice';
 
 
 
@@ -10,26 +11,34 @@ export default function ImageSelector() {
 
     const [image, setImage] = useState(null);
 
+    const user = useSelector(state => state.auth.value.userName)
+
+    const dispatch= useDispatch();
+
+    const handleLogout=()=>{
+        dispatch(clearUser())
+    }
+
 
 
 
     const verifyPermissions = async () => {
-        
 
-            const result = await PermissionStatus.askAsync(
-                Permissions.CAMERA_ROLL,
-                Permissions.CAMERA
+
+        const result = await PermissionStatus.askAsync(
+            Permissions.CAMERA_ROLL,
+            Permissions.CAMERA
+        )
+        if (result.status !== "granted") {
+            Alert.alert(`permisos insuficientes`,
+                `necesitas dar permisos para utilizar la camara del dispositivo`,
+
             )
-            if (result.status !== "granted") {
-                Alert.alert(`permisos insuficientes`,
-                    `necesitas dar permisos para utilizar la camara del dispositivo`,
+            return false
+        }
+        return true
 
-                )
-                return false
-            }
-            return true
 
-        
 
     };
 
@@ -60,7 +69,7 @@ export default function ImageSelector() {
 
     };
 
- 
+
     //---------------------------------
     const confirmImage = () => {
 
@@ -69,11 +78,15 @@ export default function ImageSelector() {
 
 
 
- 
+
 
 
     return (
         <View style={styles.container} >
+            <Text>usuario: {user}</Text>
+            <Pressable style={styles.logout} onPress={handleLogout}>
+                <Text style={styles.logout} >logout</Text>
+            </Pressable>
             {
                 image ?
                     <View style={styles.container}>
@@ -109,10 +122,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         gap: 16,
     },
+    logout:{
+        color:"grey",
+        textDecorationLine:"underline"
+    },
     img: {
         width: 200,
         height: 200,
-        borderRadius:100
+        borderRadius: 100
     },
     secondaryContainer: {
         width: 200,
@@ -126,8 +143,8 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 8,
     },
-    buttonText:{
-        color:"#fff"
+    buttonText: {
+        color: "#fff"
     }
 })
 
