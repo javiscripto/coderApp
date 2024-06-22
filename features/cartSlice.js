@@ -4,6 +4,7 @@ export const cartSlice= createSlice({
     name:"cart",
     initialState:{
         value:{
+            user:`userLogged`,
             total:0,
             items:[],
         }
