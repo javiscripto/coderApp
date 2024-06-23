@@ -16,6 +16,7 @@ export const SignUp = () => {
     const handleSignUp= async()=>{
         try {
             const payload = await trigerSignUp({email, password, displayName:username});
+            console.log(payload.data)
             //ir a login despues de registrarse
             navigate("login");
 
