@@ -4,13 +4,16 @@ import Home from "../screens/home";
 import ShopStack from "../screens/shopStack";
 import CartStack from "../screens/cartStack";
 import ProfileStack from "../screens/profileStack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Image, StyleSheet } from "react-native";
 import React from 'react';
+import { useGetProfileImageQuery } from "../services/shopService";
+import { setProfileImage } from "../features/authSlice";
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigation = () => {
+    
     const profileImage = useSelector(state => state.auth.value.profileImage);
     return (
         <Tab.Navigator

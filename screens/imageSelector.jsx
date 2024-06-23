@@ -3,14 +3,17 @@ import React, { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser, setProfileImage } from '../features/authSlice';
+import { useSaveProfileImageMutation } from '../services/shopService';
 
 export default function ImageSelector() {
     const [image, setImage] = useState(null);
-
     const user = useSelector(state => state.auth.value.userName);
-    const profileImage = useSelector(state => state.auth.value.profileImage);
+    const {localId, profileImage} = useSelector(state => state.auth.value);
 
+    
+   
     const dispatch = useDispatch();
+    const [triggerSaveProfileImage, result] = useSaveProfileImageMutation();
 
     useEffect(() => {
         if (profileImage) {
@@ -40,8 +43,16 @@ export default function ImageSelector() {
         }
     };
 
-    const confirmImage = () => {
-        dispatch(setProfileImage(image));
+    const confirmImage = async () => {
+        try {
+            dispatch(setProfileImage(image));
+           await triggerSaveProfileImage({ image, localId});
+            
+            Alert.alert("Éxito", "Imagen guardada correctamente");
+        } catch (error) {
+            console.error("Error al guardar la imagen:", error);
+            Alert.alert("Error", "No se pudo guardar la imagen");
+        }
     };
 
     return (

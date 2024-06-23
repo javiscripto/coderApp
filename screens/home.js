@@ -1,27 +1,25 @@
 import React from 'react'
-import { Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import {  StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, } from 'react-redux'
 import { Banner } from '../components/banner'
-import { useNavigation } from '@react-navigation/native';
-import { setCategorySelected } from '../features/shopSlice'
 import { FlatListCategory } from '../components/flatListCategory'
+
+
 
 export default function Home() {
 
-  const {navigate}=useNavigation()
-
-  const categories = useSelector((state) => state.shop.categories)
   const dispatch = useDispatch()
 
-  const handleCategoryPress = (category) => {
-    dispatch(setCategorySelected(category))
-    navigate("ItemList",{category})
-  }
+
+
+  
+  
 
   return (
     <SafeAreaView style={styles.home} >
       <Banner/>
+      
      <FlatListCategory/>
     </SafeAreaView>
   )

@@ -11,10 +11,15 @@ import { setCategorySelected, setProducts } from '../features/shopSlice';
 import { useGetProductsQuery } from '../services/shopService';
 import { Loader } from '../components/loader';
 
+
+
 function ItemList() {
     const { navigate } = useNavigation();
     const route = useRoute();
     const dispatch = useDispatch();
+
+
+  
 
     // Obtener la categoría de los parámetros de la ruta
     const category = route.params.category;

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Text, TextInput, Pressable, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../features/authSlice';
+import {  setUser } from '../features/authSlice';
 import { useLoginMutation } from '../services/authService';
 import { Loader } from "../components/loader"
 
@@ -13,7 +13,7 @@ export const Login = () => {
     const { navigate } = useNavigation();
     const dispatch = useDispatch()
 
-    const [trigerLogin, response] = useLoginMutation()
+    const [trigerLogin, response] = useLoginMutation();
 
 
 
@@ -34,12 +34,15 @@ export const Login = () => {
     const handleLogin = async () => {
         try {
             const payload = await trigerLogin({ email, password })
-            console.log(payload.data)
+            
+            
             if(!payload.data){
                 Alert.alert("datos incorrectos, intente nuevamente")
                 return
             }
             dispatch(setUser(payload))
+
+            
         } catch (error) {
             console.error(`ha ocurrido un error : ${error}`)
         }

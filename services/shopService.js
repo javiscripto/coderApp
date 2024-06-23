@@ -18,13 +18,31 @@ export const shopApi = createApi({
         //para crear informacion dentro del servidor es necesario agregar al builder el método .mutation 
         //para cada recurso que queramos crear, modificar o eliminar en la bd (verbos http)
         postOrder: builder.mutation({
-            query:order=>({
-                url:`orders.json`,
-                method:`POST`,
-                body:order,
+            query: order => ({
+                url: `orders.json`,
+                method: `POST`,
+                body: order,
             })
-        })
+        }),
+        saveProfileImage: builder.mutation({
+            query: ({ image, localId }) => ({
+                url: `profileImages/${localId}.json`,
+                method: "PUT",
+                body: { image },
+            })
+        }),
+        getProfileImage: builder.query({
+            query: (localId) => `profileImages/${localId}.json`,
+        }),
+
     })
 });
 
-export const { useGetProductsQuery, useGetCategoriesQuery, useGetProductsByCategoryQuery , usePostOrderMutation } = shopApi;
+export const {
+    useGetProductsQuery,
+    useGetCategoriesQuery,
+    useGetProductsByCategoryQuery,
+    usePostOrderMutation,
+    useSaveProfileImageMutation,
+    useGetProfileImageQuery } = shopApi;
+
