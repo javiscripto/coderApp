@@ -1,25 +1,28 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, TextInput, Pressable, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
-import {  setUser } from '../features/authSlice';
+import { setProfileImage, setUser } from '../features/authSlice';
 import { useLoginMutation } from '../services/authService';
+import { useGetProfileImageQuery } from "../services/shopService"
 import { Loader } from "../components/loader"
 
-
 export const Login = () => {
-
     const { navigate } = useNavigation();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    //querys
+    const [triggerLogin, response] = useLoginMutation();
+    const [localId, setLocalId] = useState(null);
 
-    const [trigerLogin, response] = useLoginMutation();
-
-
+    const { data: imageData, refetch: refetchProfileImage , isLoading:imageIsLoading } = useGetProfileImageQuery(localId, {skip: !localId,});
 
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+
+
 
     const handleEmailChange = (text) => {
         setEmail(text);
@@ -29,42 +32,51 @@ export const Login = () => {
         setPassword(text);
     };
 
-    const isLoading= response.isLoading
+    const isLoading = response.isLoading || imageIsLoading;
+
+
 
     const handleLogin = async () => {
         try {
-            const payload = await trigerLogin({ email, password })
-            
-            
-            if(!payload.data){
-                Alert.alert("datos incorrectos, intente nuevamente")
-                return
+            const payload = await triggerLogin({ email, password });
+            console.log(payload)
+            if (!payload.data) {
+                Alert.alert("Datos incorrectos, intente nuevamente");
+                return;
             }
-            dispatch(setUser(payload))
 
-            
+            setLocalId(payload.data.localId)
+            dispatch(setUser(payload));
+
         } catch (error) {
-            console.error(`ha ocurrido un error : ${error}`)
+            console.error(`Ha ocurrido un error: ${error}`);
         }
+    };
 
-        
-    }
+
+    useEffect(() => {
+        if (localId) {
+            refetchProfileImage();
+            console.log(imageData)
+            dispatch(setProfileImage(imageData))
+
+        }
+    }, [localId, imageData]);
 
     return (
         <SafeAreaView style={styles.container}>
-
             {isLoading && (<Loader />)}
 
-            <Text style={styles.title}>inicia sesion</Text>
+            <Text style={styles.title}>Inicia sesión</Text>
 
             <TextInput
-                placeholder="correo electronico"
+                placeholder="Correo electrónico"
                 onChangeText={handleEmailChange}
                 value={email}
                 style={styles.input}
             />
             <TextInput
-                placeholder="contraseña"
+                placeholder="Contraseña"
                 onChangeText={handlePasswordChange}
                 value={password}
                 secureTextEntry
@@ -78,13 +90,10 @@ export const Login = () => {
                 <Text style={styles.text}>Login</Text>
             </Pressable>
 
-
             <Text>o</Text>
 
-
-
             <Pressable onPress={() => navigate("sign up")}>
-                <Text style={styles.link}>registrate</Text>
+                <Text style={styles.link}>Regístrate</Text>
             </Pressable>
         </SafeAreaView>
     );

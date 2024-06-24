@@ -18,8 +18,8 @@ export default function ProfileStack() {
     }}
     >
 
-      <StackScreen name='myProfile' component={ImageSelector}/>
-      {/* <StackScreen name='image selector' component={ImageSelector}/> */}
+      <StackScreen name='myProfile' component={MyProfile}/>
+      <StackScreen name='imageSelector' component={ImageSelector}/>
 
     </StackNavigator>
   )

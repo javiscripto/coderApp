@@ -4,17 +4,18 @@ import Home from "../screens/home";
 import ShopStack from "../screens/shopStack";
 import CartStack from "../screens/cartStack";
 import ProfileStack from "../screens/profileStack";
-import { useDispatch, useSelector } from "react-redux";
-import { Image, StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
+import { StyleSheet, Image } from "react-native";
 import React from 'react';
-import { useGetProfileImageQuery } from "../services/shopService";
-import { setProfileImage } from "../features/authSlice";
+
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigation = () => {
-    
-    const profileImage = useSelector(state => state.auth.value.profileImage);
+        const {photo} = useSelector(state => state.auth.value.user)
+
+
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -31,12 +32,14 @@ export const TabNavigation = () => {
                     } else if (route.name === "carrito") {
                         iconName = "shopping-cart";
                     } else if (route.name === "cuenta") {
-                        if (profileImage) {
-                            return <Image source={{ uri: profileImage }} style={styles.img} />;
-                        } else {
-                            iconName = "user";
-                            
+                        if(photo){
+                            return(
+                                <Image source={{ uri: photo }} style={styles.img} />
+                            )
                         }
+                        iconName = "user";
+                            
+                        
                     }
 
                     return <Entypo name={iconName} size={size} color={iconColor} />;

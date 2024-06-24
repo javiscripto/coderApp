@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthStack } from "../screens/authStack";
 import { TabNavigation } from "./tabNavigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetProfileImageQuery } from "../services/shopService";
+import { setUserPhoto } from "../features/authSlice";
 
 
 
 
 export const MainNavigation =()=>{
 
-    //const [user, setUser]= useState(null)
-    const user = useSelector(state=>state.auth.value.user)
+    const dispatch = useDispatch();
+
+    
+    const {data:dataImage} = useGetProfileImageQuery(localId)
+    const localId = useSelector(state=>state.auth.value.user.localId);
+
+    useEffect(()=>{
+        if(dataImage){
+            dispatch(setUserPhoto(dataImage.image))
+        }
+    },[dataImage])
+
     return(
 
     <NavigationContainer>
-        {user?<TabNavigation/>:<AuthStack/>}
+        {localId?<TabNavigation/>:<AuthStack/>}
     </NavigationContainer>
 
 )
-}
 
+}

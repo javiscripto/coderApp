@@ -4,22 +4,22 @@ import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser, setProfileImage } from '../features/authSlice';
 import { useSaveProfileImageMutation } from '../services/shopService';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ImageSelector() {
     const [image, setImage] = useState(null);
-    const user = useSelector(state => state.auth.value.userName);
-    const {localId, profileImage} = useSelector(state => state.auth.value);
+    const {localId, photo, userName} = useSelector(state => state.auth.value.user);
 
     
-   
+    const {goBack}=useNavigation()
     const dispatch = useDispatch();
     const [triggerSaveProfileImage, result] = useSaveProfileImageMutation();
 
     useEffect(() => {
-        if (profileImage) {
-            setImage(profileImage);
+        if (photo) {
+            setImage(photo);
         }
-    }, [profileImage]);
+    }, [photo]);
 
     const handleLogout = () => {
         dispatch(clearUser());
@@ -46,9 +46,10 @@ export default function ImageSelector() {
     const confirmImage = async () => {
         try {
             dispatch(setProfileImage(image));
-           await triggerSaveProfileImage({ image, localId});
-            
+           const response = await triggerSaveProfileImage({ image, localId});
+            console.log(response)
             Alert.alert("Éxito", "Imagen guardada correctamente");
+            goBack()
         } catch (error) {
             console.error("Error al guardar la imagen:", error);
             Alert.alert("Error", "No se pudo guardar la imagen");
@@ -57,7 +58,7 @@ export default function ImageSelector() {
 
     return (
         <View style={styles.container}>
-            <Text>usuario: {user}</Text>
+            <Text>usuario: {userName}</Text>
             <Pressable style={styles.logout} onPress={handleLogout}>
                 <Text style={styles.logout}>logout</Text>
             </Pressable>

@@ -1,21 +1,52 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Profile from '../assets/icons/profile' //svg image
+import { useNavigation } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import Entypo from '@expo/vector-icons/Entypo';
+import { clearUser } from '../features/authSlice'
+
 
 export default function MyProfile() {
 
+  const {navigate} = useNavigation();
 
+  //obtener la imagen de RTDB
+  const {photo, userName} = useSelector(state=>state.auth.value.user)
 
+  
+ 
 
+  const dispatch = useDispatch()
 
+ 
 
-
+  const handleLogout = () => {
+    dispatch(clearUser());
+};
   
   return (
     <SafeAreaView style={styles.myProfile}>
-      <Profile/>
-      <Pressable style={styles.button}>
+
+
+    <View style={styles.logoutContainer}>
+            <Text>usuario: {userName}</Text>
+            <Pressable style={styles.logout} onPress={handleLogout}>
+                <Text style={styles.logout}>logout</Text>
+                <Entypo name="log-out" size={24} color="black" />
+            </Pressable>
+    </View>
+      
+      {photo?(
+        <Image source={{ uri: photo}} style={styles.img} />
+
+      ):(
+        <Profile/>
+      )}
+
+
+ 
+      <Pressable style={styles.button} onPress={()=>navigate("imageSelector")}>
         <Text style={styles.buttonText}> Cambiar foto de perfil     </Text>
       </Pressable>
     </SafeAreaView>
@@ -30,6 +61,12 @@ const styles = StyleSheet.create({
         alignContent:"center",
         gap:32,
     },
+    img: {
+      width: 200,
+      height: 200,
+      borderRadius: 100,
+      resizeMode:"contain"
+  },
     button: {
         backgroundColor: '#d62828',
         margin: 16,
@@ -41,4 +78,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#fff',
     },
+    logout: {
+      color: "grey",
+      textDecorationLine: "underline",
+      flexDirection:"row"
+  },
+  logoutContainer:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap:32
+  }
 })
