@@ -1,11 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text, TextInput, Pressable, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
-import { setProfileImage, setUser } from '../features/authSlice';
+import { setUser } from '../features/authSlice';
 import { useLoginMutation } from '../services/authService';
-import { useGetProfileImageQuery } from "../services/shopService"
 import { Loader } from "../components/loader"
 
 export const Login = () => {
@@ -13,9 +12,6 @@ export const Login = () => {
     const dispatch = useDispatch();
     //querys
     const [triggerLogin, response] = useLoginMutation();
-    const [localId, setLocalId] = useState(null);
-
-    const { data: imageData, refetch: refetchProfileImage , isLoading:imageIsLoading } = useGetProfileImageQuery(localId, {skip: !localId,});
 
 
     const [email, setEmail] = useState('');
@@ -32,20 +28,18 @@ export const Login = () => {
         setPassword(text);
     };
 
-    const isLoading = response.isLoading || imageIsLoading;
+    const isLoading = response.isLoading;
 
 
 
     const handleLogin = async () => {
         try {
             const payload = await triggerLogin({ email, password });
-            console.log(payload)
             if (!payload.data) {
                 Alert.alert("Datos incorrectos, intente nuevamente");
                 return;
             }
 
-            setLocalId(payload.data.localId)
             dispatch(setUser(payload));
 
         } catch (error) {
@@ -54,14 +48,7 @@ export const Login = () => {
     };
 
 
-    useEffect(() => {
-        if (localId) {
-            refetchProfileImage();
-            console.log(imageData)
-            dispatch(setProfileImage(imageData))
-
-        }
-    }, [localId, imageData]);
+ 
 
     return (
         <SafeAreaView style={styles.container}>

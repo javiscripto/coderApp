@@ -12,8 +12,7 @@ import React from 'react';
 const Tab = createBottomTabNavigator();
 
 export const TabNavigation = () => {
-        const {photo} = useSelector(state => state.auth.value.user)
-
+        const profileImage = useSelector(state => state.auth.value.user.photo)
 
 
     return (
@@ -32,9 +31,9 @@ export const TabNavigation = () => {
                     } else if (route.name === "carrito") {
                         iconName = "shopping-cart";
                     } else if (route.name === "cuenta") {
-                        if(photo){
+                        if(profileImage){
                             return(
-                                <Image source={{ uri: photo }} style={styles.img} />
+                                <Image source={{ uri: profileImage }} style={styles.img} />
                             )
                         }
                         iconName = "user";

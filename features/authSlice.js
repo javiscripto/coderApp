@@ -20,7 +20,7 @@ export const authSlice= createSlice({
             state.value.user.email= action.payload.data.email
             state.value.user.localId= action.payload.data.localId
             state.value.token= action.payload.data.idToken
-            state.value.userName=action.payload.data.displayName
+            state.value.user.userName=action.payload.data.displayName
         },
         setProfileImage:(state, action)=>{
             state.value.profileImage=action.payload
@@ -29,11 +29,16 @@ export const authSlice= createSlice({
             state.value.user.photo=action.payload
         },
         clearUser:(state)=>{
-            state.value.user=null
-            state.value.token= null
-            //state.value.localId=null
-            state.value.userName=null
-            state.value.profileImage=null
+           state.value ={
+            user: {
+                email: null,
+                localId: null,
+                userName:null, 
+                photo: null,
+              },
+              token:null,
+              profileImage:null,
+            }
         },
 
 

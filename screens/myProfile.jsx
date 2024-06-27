@@ -4,7 +4,7 @@ import Profile from '../assets/icons/profile' //svg image
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import Entypo from '@expo/vector-icons/Entypo';
-import { clearUser } from '../features/authSlice'
+import { clearUser, setUserPhoto } from '../features/authSlice'
 
 
 export default function MyProfile() {
@@ -12,7 +12,9 @@ export default function MyProfile() {
   const {navigate} = useNavigation();
 
   //obtener la imagen de RTDB
-  const {photo, userName} = useSelector(state=>state.auth.value.user)
+
+
+  const {photo, userName, localId} = useSelector(state=>state.auth.value.user)
 
   
  

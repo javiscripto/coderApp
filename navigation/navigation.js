@@ -14,14 +14,17 @@ export const MainNavigation =()=>{
     const dispatch = useDispatch();
 
     
-    const {data:dataImage} = useGetProfileImageQuery(localId)
     const localId = useSelector(state=>state.auth.value.user.localId);
+    const {data:img, isLoading} = useGetProfileImageQuery(localId)
 
+    
     useEffect(()=>{
-        if(dataImage){
-            dispatch(setUserPhoto(dataImage.image))
+        
+        if(img){
+
+            dispatch(setUserPhoto(img.image))
         }
-    },[dataImage])
+    },[img])
 
     return(
 

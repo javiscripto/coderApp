@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, Pressable, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearUser, setProfileImage } from '../features/authSlice';
+import { clearUser, setProfileImage, setUserPhoto } from '../features/authSlice';
 import { useSaveProfileImageMutation } from '../services/shopService';
 import { useNavigation } from '@react-navigation/native';
 
@@ -45,9 +45,8 @@ export default function ImageSelector() {
 
     const confirmImage = async () => {
         try {
-            dispatch(setProfileImage(image));
+            dispatch(setUserPhoto(image));
            const response = await triggerSaveProfileImage({ image, localId});
-            console.log(response)
             Alert.alert("Éxito", "Imagen guardada correctamente");
             goBack()
         } catch (error) {
