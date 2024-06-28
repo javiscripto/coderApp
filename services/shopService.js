@@ -24,6 +24,9 @@ export const shopApi = createApi({
                 body: order,
             })
         }),
+        getOrders:builder.query({
+            query:user=>`orders.json?orderBy="user"&equalTo="${user}"`
+        }),
         saveProfileImage: builder.mutation({
             query: ({ image, localId }) => ({
                 url: `profileImages/${localId}.json`,
@@ -43,6 +46,7 @@ export const {
     useGetCategoriesQuery,
     useGetProductsByCategoryQuery,
     usePostOrderMutation,
+    useGetOrdersQuery,
     useSaveProfileImageMutation,
     useGetProfileImageQuery } = shopApi;
 
