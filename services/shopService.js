@@ -5,6 +5,7 @@ import { baseUrl } from "../firebase/database";
 export const shopApi = createApi({
     reducerPath: 'shopApi',
     baseQuery: fetchBaseQuery({ baseUrl }),
+    refetchOnFocus:true,
     endpoints: (builder) => ({
         getProducts: builder.query({
             query: () => "products.json"
@@ -25,8 +26,12 @@ export const shopApi = createApi({
             })
         }),
         getOrders:builder.query({
-            query:user=>`orders.json?orderBy="user"&equalTo="${user}"`
+            query:user=>`orders.json?orderBy="user"&equalTo="${user}"`// recibe elLocalId
         }),
+        getOrderById:builder.query({
+            query:orderId=>`orders/${orderId}.json`
+        })
+        ,
         saveProfileImage: builder.mutation({
             query: ({ image, localId }) => ({
                 url: `profileImages/${localId}.json`,

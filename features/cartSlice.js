@@ -4,12 +4,16 @@ export const cartSlice= createSlice({
     name:"cart",
     initialState:{
         value:{
-            user:`userLogged`,
+            user:null,
             total:0,
             items:[],
+            
         }
     },
     reducers:{
+        setCartUser:(state, action)=>{
+            state.value.user= action.payload.data.localId
+        },
         addProduct: (state, action) => {
             const product = action.payload;
             const existingProd = state.value.items.find(
@@ -37,13 +41,14 @@ export const cartSlice= createSlice({
         },
         deleteCart:(state)=>{
             state.value.items=[];
-        }
+        },
+     
         
 
     }
 });
 
 
-export const {addProduct, deleteProductById , deleteCart } = cartSlice.actions
+export const {setCartUser, addProduct, deleteProductById , deleteCart , setOrders } = cartSlice.actions
 
 export default cartSlice.reducer

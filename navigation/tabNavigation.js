@@ -7,6 +7,7 @@ import ProfileStack from "../screens/profileStack";
 import { useSelector } from "react-redux";
 import { StyleSheet, Image } from "react-native";
 import React from 'react';
+import {OrderList} from "../screens/orderList";
 
 
 const Tab = createBottomTabNavigator();
@@ -28,6 +29,8 @@ export const TabNavigation = () => {
                     } else if (route.name === "Tienda") {
                         iconName = "shop";
                         
+                    }else if(route.name==="ordenes"){
+                        iconName="list"
                     } else if (route.name === "carrito") {
                         iconName = "shopping-cart";
                     } else if (route.name === "cuenta") {
@@ -46,10 +49,12 @@ export const TabNavigation = () => {
                 headerShown: false
             })}
         >
-            <Tab.Screen name="Home" component={Home} />
+            {/* <Tab.Screen name="Home" component={Home} /> */}
             <Tab.Screen name="Tienda" component={ShopStack} />
             <Tab.Screen name="carrito" component={CartStack} />
+            <Tab.Screen name="ordenes" component={OrderList}/>
             <Tab.Screen name="cuenta" component={ProfileStack} />
+
         </Tab.Navigator>
     );
 };

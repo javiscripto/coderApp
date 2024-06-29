@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../features/authSlice';
 import { useLoginMutation } from '../services/authService';
 import { Loader } from "../components/loader"
+import { setCartUser } from '../features/cartSlice';
 
 export const Login = () => {
     const { navigate } = useNavigation();
@@ -34,6 +35,7 @@ export const Login = () => {
 
     const handleLogin = async () => {
         try {
+            
             const payload = await triggerLogin({ email, password });
             if (!payload.data) {
                 Alert.alert("Datos incorrectos, intente nuevamente");
@@ -41,6 +43,7 @@ export const Login = () => {
             }
 
             dispatch(setUser(payload));
+            dispatch(setCartUser(payload))
 
         } catch (error) {
             console.error(`Ha ocurrido un error: ${error}`);

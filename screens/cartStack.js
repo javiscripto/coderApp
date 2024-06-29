@@ -5,14 +5,15 @@ import { useSelector } from 'react-redux';
 import { CartItem } from '../components/cartItem';
 import { usePostOrderMutation } from '../services/shopService';
 import { useDispatch } from 'react-redux';
-import { deleteCart } from '../features/cartSlice';
+import { deleteCart,  } from '../features/cartSlice';
+import {setOrders} from "../features/authSlice";
 
 import {Loader} from "../components/loader"
 
 function CartStack() {
   const cart = useSelector(state => state.cart.value.items);
   const total = useSelector(state => state.cart.value.total);
-  const user= useSelector(state=>state.cart.value.user);
+  const user= useSelector(state=>state.auth.value.user.localId);// localId 
 
 
   // handler enviar orden a la db 
@@ -28,6 +29,7 @@ function CartStack() {
 
     if ( response.data) {
       dispatch(deleteCart());
+      dispatch(setOrders(response.data))
     } else {
       console.error('Error al confirmar la orden');
     }
@@ -69,7 +71,7 @@ function CartStack() {
                 <Text style={styles.buttonText}>Confirmar la compra</Text>
               </Pressable>
             )}
-
+           
           </View>
 
         </View>
