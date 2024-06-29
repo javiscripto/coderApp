@@ -1,6 +1,8 @@
 import React, {  useState } from 'react';
 import { Pressable, StyleSheet, View, Text, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+
 import CustomToast from './alerts/customToast';
 
 import { useDispatch } from 'react-redux';
@@ -35,9 +37,11 @@ export default function ItemActions({product}) {
         <View style={styles.itemWidget}>
             <View style={styles.secondaryButtons}>
                 <Pressable onPress={handleFavoritePress}>
-                    <AntDesign name="star" size={24} color={isFavorite ? "black" : "grey"} />
+                
+                    <FontAwesome5 name="bolt" size={24} color={isFavorite ? "black" : "grey"} />
                 </Pressable>
                 <Pressable onPress={() => Alert.alert("Compartir")}>
+
                     <AntDesign name="sharealt" size={24} color="black" />
                 </Pressable>
             </View>

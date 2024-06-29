@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch, } from 'react-redux'
 import { Banner } from '../components/banner'
 import { FlatListCategory } from '../components/flatListCategory'
+import { Offers } from '../components/offers'
 
 
 
@@ -21,6 +22,8 @@ export default function Home() {
       <Banner/>
       
      <FlatListCategory/>
+
+     <Offers/>
     </SafeAreaView>
   )
 };

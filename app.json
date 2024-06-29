@@ -62,6 +62,11 @@
               "expoFontName": "Roboto-Light",
               "fontFamily": "Roboto-Light",
               "file": "./assets/fonts/Roboto-Light.ttf"
+            },
+            {
+              "expoFontName": "Bungee-Regular",
+              "fontFamily": "Bungee-Regular",
+              "file": "./assets/fonts/Bungee-Regular"
             }
           ]
         }
