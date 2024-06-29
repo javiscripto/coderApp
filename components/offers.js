@@ -23,7 +23,7 @@ export const Offers = () => {
 
 const styles = StyleSheet.create({
     img: {
-        height: 300,
+        height: 250,
         backgroundColor: "white"
     },
     textContainer: {
@@ -34,18 +34,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 32,
         paddingVertical: 64,
-        width: '100%',
+        width: '90%',
     },
     title: {
-        color: "#d62",
+        color: "#d6282880",
         fontFamily: "Bungee-Regular",
-        fontSize: 40,
+        fontSize: 32,
         textAlign: "center",
 
     },
     button: {
         alignSelf:"flex-end",
-        backgroundColor: '#d6282880',
+        backgroundColor: '#d6282899',
         margin: 16,
         padding: 16,
         borderRadius: 8,

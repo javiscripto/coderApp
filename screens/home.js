@@ -32,7 +32,7 @@ export default function Home() {
 const styles= StyleSheet.create({
   home:{
     alignContent:"center",
-    gap:40
+    gap:24,
   },
   flatlist:{
     flexDirection:"row",
