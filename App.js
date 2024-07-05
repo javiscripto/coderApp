@@ -8,12 +8,16 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import {init} from "./DB"
+
+
 
 
 
 SplashScreen.preventAutoHideAsync()
-
-
+init()
+  .then(() => console.log('Database initialized'))
+  .catch(err => console.error('Database initialization failed', err))
 
 
 
