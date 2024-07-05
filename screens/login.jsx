@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, TextInput, Pressable, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/authSlice';
 import { useLoginMutation } from '../services/authService';
-import { Loader } from "../components/loader"
+import { Loader } from "../components/loader";
 import { setCartUser } from '../features/cartSlice';
+import { insertSession } from '../DB';
 
 export const Login = () => {
     const { navigate } = useNavigation();
@@ -14,12 +15,8 @@ export const Login = () => {
     //querys
     const [triggerLogin, response] = useLoginMutation();
 
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-
-
 
     const handleEmailChange = (text) => {
         setEmail(text);
@@ -29,29 +26,36 @@ export const Login = () => {
         setPassword(text);
     };
 
-    const isLoading = response.isLoading;
-
 
 
     const handleLogin = async () => {
         try {
-            
-            const payload = await triggerLogin({ email, password });
-            if (!payload.data) {
-                Alert.alert("Datos incorrectos, intente nuevamente");
-                return;
-            }
-
-            dispatch(setUser(payload));
-            dispatch(setCartUser(payload))
+            await triggerLogin({ email, password })
 
         } catch (error) {
+            Alert.alert("Error", "datos incorrectos, por favor verifique")
             console.error(`Ha ocurrido un error: ${error}`);
         }
     };
+    let isLoading = response.isLoading;
 
 
- 
+
+    useEffect(() => {
+        if (response.data) {
+         const { email, localId, idToken , displayName } = response.data;
+            dispatch(setUser(response.data));
+            insertSession({ email, localId, idToken , displayName})
+                .then(() => {
+                    console.log("Sesión insertada correctamente");
+                })
+                .catch((error) => {
+                    console.error("Error insertando sesión:", error);
+                });
+        }
+    }, [response.data]);
+
+    
 
     return (
         <SafeAreaView style={styles.container}>

@@ -9,13 +9,13 @@ export const init = async () => {
   )
 }
 
-export const insertSession = async ({ email, localId, token }) => {
+export const insertSession = async ({ email, localId, idToken }) => {
   try {
     await db.runAsync(
       'INSERT INTO sessions (localId, email, token) VALUES (?, ?, ?)',
       localId,
       email,
-      token
+      idToken
     )
   } catch (error) {
     console.error('Error insertando sesión:', error)

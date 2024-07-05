@@ -4,17 +4,17 @@ import Profile from '../assets/icons/profile' //svg image
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import Entypo from '@expo/vector-icons/Entypo';
-import { clearUser, setUserPhoto } from '../features/authSlice'
+import { clearUser } from '../features/authSlice'
 import { deleteSession } from '../DB'
 
 
-export default function MyProfile() {
+export default function MyProfile() { 
 
   const {navigate} = useNavigation();
 
 
 
-  const {photo, userName, localId} = useSelector(state=>state.auth.value.user)
+  const {photo, userName} = useSelector(state=>state.auth.value.user)
 
   
  

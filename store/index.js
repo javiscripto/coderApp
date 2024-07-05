@@ -1,4 +1,3 @@
-// store/index.js
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../features/counterSlice";
 import shopReducer from "../features/shopSlice";

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthStack } from "../screens/authStack";
 import { TabNavigation } from "./tabNavigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetProfileImageQuery } from "../services/shopService";
-import { setUserPhoto } from "../features/authSlice";
-import { insertSession } from "../DB"; 
+import { setUser, setUserPhoto } from "../features/authSlice";
+import { fetchSession } from "../DB"; 
 
 export const MainNavigation = () => {
   const dispatch = useDispatch();
@@ -20,19 +20,15 @@ export const MainNavigation = () => {
     }
   }, [img]);
 
-  useEffect(() => {
-    if (localId && email && token) {
-      insertSession({ email, localId, token })
-        .then(() => {
-          console.log("Sesión insertada correctamente");
-        })
-        .catch((error) => {
-          console.error("Error insertando sesión:", error);
-        });
+
+
+  useEffect(()=>{
+    const getSession= async ()=>{
+      const session= await fetchSession()
+      if(session)dispatch(setUser(session))
     }
-  }, [localId, email, token]);
-
-
+  getSession()
+  },[])
 
   
 
