@@ -5,13 +5,13 @@ import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import Entypo from '@expo/vector-icons/Entypo';
 import { clearUser, setUserPhoto } from '../features/authSlice'
+import { deleteSession } from '../DB'
 
 
 export default function MyProfile() {
 
   const {navigate} = useNavigation();
 
-  //obtener la imagen de RTDB
 
 
   const {photo, userName, localId} = useSelector(state=>state.auth.value.user)
@@ -23,8 +23,24 @@ export default function MyProfile() {
 
  
 
-  const handleLogout = () => {
-    dispatch(clearUser());
+  const handleLogout = async() => {
+    try {
+       deleteSession()
+        .then(() => {
+          console.log("success: logout");
+        })
+        .catch((error) => {
+          console.error("Error :", error);
+        });
+
+
+
+      dispatch(clearUser());
+      
+    } catch (error) {
+console.error(`error al eliminar la sesion: `, error)
+    }
+
 };
   
   return (

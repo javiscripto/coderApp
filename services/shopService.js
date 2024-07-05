@@ -16,7 +16,6 @@ export const shopApi = createApi({
         getProductsByCategory: builder.query({
             query: (category) => `products.json?orderBy="category"&equalTo="${category}"`
         }),
-        //para crear informacion dentro del servidor es necesario agregar al builder el método .mutation 
         //para cada recurso que queramos crear, modificar o eliminar en la bd (verbos http)
         postOrder: builder.mutation({
             query: order => ({
