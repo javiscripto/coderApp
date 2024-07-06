@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../features/authSlice';
 import { useLoginMutation } from '../services/authService';
 import { Loader } from "../components/loader";
-import { setCartUser } from '../features/cartSlice';
 import { insertSession } from '../DB';
 
 export const Login = () => {
@@ -30,7 +29,7 @@ export const Login = () => {
 
     const handleLogin = async () => {
         try {
-            await triggerLogin({ email, password })
+            await triggerLogin({ email: email.trim().toLowerCase(), password })
 
         } catch (error) {
             Alert.alert("Error", "datos incorrectos, por favor verifique")
