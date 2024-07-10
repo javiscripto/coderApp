@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearUser, setProfileImage, setUserPhoto } from '../features/authSlice';
 import { useSaveProfileImageMutation } from '../services/shopService';
 import { useNavigation } from '@react-navigation/native';
+import { CustomButton } from '../components/customButton';
 
 export default function ImageSelector() {
     const [image, setImage] = useState(null);
-    const {localId, photo, userName} = useSelector(state => state.auth.value.user);
+    const { localId, photo, userName } = useSelector(state => state.auth.value.user);
 
-    
-    const {goBack}=useNavigation()
+
+    const { goBack } = useNavigation()
     const dispatch = useDispatch();
     const [triggerSaveProfileImage, result] = useSaveProfileImageMutation();
 
@@ -46,7 +47,7 @@ export default function ImageSelector() {
     const confirmImage = async () => {
         try {
             dispatch(setUserPhoto(image));
-           const response = await triggerSaveProfileImage({ image, localId});
+            const response = await triggerSaveProfileImage({ image, localId });
             Alert.alert("Éxito", "Imagen guardada correctamente");
             goBack()
         } catch (error) {
@@ -64,12 +65,14 @@ export default function ImageSelector() {
             {image ? (
                 <View style={styles.container}>
                     <Image source={{ uri: image }} style={styles.img} />
-                    <Pressable style={styles.button} onPress={pickImage}>
-                        <Text style={styles.buttonText}>tomar otra foto</Text>
-                    </Pressable>
-                    <Pressable style={styles.button} onPress={confirmImage}>
-                        <Text style={styles.buttonText}>confirmar foto</Text>
-                    </Pressable>
+
+
+                    <CustomButton onPress={pickImage}>
+                        tomar otra foto
+                    </CustomButton>
+                    <CustomButton onPress={confirmImage}>
+                        confirmar foto
+                    </CustomButton>
                 </View>
             ) : (
                 <>
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        gap: 16,
+        gap: 8,
     },
     logout: {
         color: "grey",
@@ -104,16 +107,9 @@ const styles = StyleSheet.create({
     secondaryContainer: {
         width: 200,
         height: 200,
-        padding: 16,
+        padding: 8,
         justifyContent: "center",
         alignItems: "center",
     },
-    button: {
-        backgroundColor: '#d62828',
-        padding: 16,
-        borderRadius: 8,
-    },
-    buttonText: {
-        color: "#fff",
-    },
+
 });

@@ -5,29 +5,30 @@ import { useSelector } from 'react-redux';
 import { CartItem } from '../components/cartItem';
 import { usePostOrderMutation } from '../services/shopService';
 import { useDispatch } from 'react-redux';
-import { deleteCart,  } from '../features/cartSlice';
-import {setOrders} from "../features/authSlice";
+import { deleteCart, } from '../features/cartSlice';
+import { setOrders } from "../features/authSlice";
 
-import {Loader} from "../components/loader"
+import { Loader } from "../components/loader"
+import { CustomButton } from '../components/customButton';
 
 function CartStack() {
   const cart = useSelector(state => state.cart.value.items);
   const total = useSelector(state => state.cart.value.total);
-  const user= useSelector(state=>state.auth.value.user.localId);// localId 
+  const user = useSelector(state => state.auth.value.user.localId);// localId 
 
 
   // handler enviar orden a la db 
-  const [triggerPOST, {isLoading}] = usePostOrderMutation();
-  const dispatch=useDispatch()
- 
+  const [triggerPOST, { isLoading }] = usePostOrderMutation();
+  const dispatch = useDispatch()
+
 
 
   const handlerConfirmOrderPress = async () => {
-    const date = new Date().toLocaleString('es-ES',{timeZone: 'America/Santiago'})
+    const date = new Date().toLocaleString('es-ES', { timeZone: 'America/Santiago' })
 
-    const response = await triggerPOST({ cart, total, user , createdAt:date});
+    const response = await triggerPOST({ cart, total, user, createdAt: date });
 
-    if ( response.data) {
+    if (response.data) {
       dispatch(deleteCart());
       dispatch(setOrders(response.data))
     } else {
@@ -48,7 +49,7 @@ function CartStack() {
         <View style={styles.cart}>
 
           {isLoading && (
-            <Loader/>
+            <Loader />
           )}
 
           <FlatList
@@ -67,11 +68,11 @@ function CartStack() {
               ${total}
             </Text>
             {cart.length > 0 && (
-              <Pressable style={styles.button} onPress={handlerConfirmOrderPress}>
-                <Text style={styles.buttonText}>Confirmar la compra</Text>
-              </Pressable>
+              <CustomButton onPress={handlerConfirmOrderPress}>
+                confirmar compra
+              </CustomButton>
             )}
-           
+
           </View>
 
         </View>
@@ -115,15 +116,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "auto",
   },
-  buttonText: {
-    fontFamily: 'Roboto-Bold',
-    fontSize: 16,
-    color: '#fff',
-  },
-  button: {
-    backgroundColor: '#d62828',
-    margin: 16,
-    padding: 16,
-    borderRadius: 8,
-  },
+
 });

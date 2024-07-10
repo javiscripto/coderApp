@@ -7,6 +7,7 @@ import { setUser } from '../features/authSlice';
 import { useLoginMutation } from '../services/authService';
 import { Loader } from "../components/loader";
 import { insertSession } from '../DB';
+import { CustomButton } from '../components/customButton';
 
 export const Login = () => {
     const { navigate } = useNavigation();
@@ -42,9 +43,9 @@ export const Login = () => {
 
     useEffect(() => {
         if (response.data) {
-         const { email, localId, idToken , displayName } = response.data;
+            const { email, localId, idToken, displayName } = response.data;
             dispatch(setUser(response.data));
-            insertSession({ email, localId, idToken , displayName})
+            insertSession({ email, localId, idToken, displayName })
                 .then(() => {
                     console.log("Sesión insertada correctamente");
                 })
@@ -54,7 +55,7 @@ export const Login = () => {
         }
     }, [response.data]);
 
-    
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -76,12 +77,9 @@ export const Login = () => {
                 style={styles.input}
             />
 
-            <Pressable
-                style={styles.button}
-                onPress={handleLogin}
-            >
-                <Text style={styles.text}>Login</Text>
-            </Pressable>
+            <CustomButton onPress={handleLogin}>
+                ingresar
+            </CustomButton>
 
             <Text>o</Text>
 
@@ -102,8 +100,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         marginBottom: 20,
-        fontFamily:"Bungee-Regular",
-        color:"#d62828"
+        fontFamily: "Bungee-Regular",
+        color: "#d62828"
     },
     input: {
         width: '80%',
@@ -112,15 +110,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 5,
     },
-    button: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: '#d62828',
-        borderRadius: 5,
-    },
-    text: {
-        color: 'white',
-    },
+
     link: {
         textDecorationLine: "underline"
     }

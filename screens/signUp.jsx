@@ -3,19 +3,20 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useSignUpMutation } from "../services/authService";
 import { useNavigation } from "@react-navigation/native";
-import {Loader} from "../components/loader"
+import { Loader } from "../components/loader"
+import { CustomButton } from "../components/customButton";
 
 
 
 export const SignUp = () => {
 
     //crear usuarios
-    const {navigate} = useNavigation()
-    const [trigerSignUp, {isLoading}]= useSignUpMutation();
+    const { navigate } = useNavigation()
+    const [trigerSignUp, { isLoading }] = useSignUpMutation();
 
-    const handleSignUp= async()=>{
+    const handleSignUp = async () => {
         try {
-            const payload = await trigerSignUp({email:email.trim().toLowerCase(), password, displayName:username});
+            const payload = await trigerSignUp({ email: email.trim().toLowerCase(), password, displayName: username });
             //ir a login despues de registrarse
             navigate("login");
 
@@ -25,7 +26,7 @@ export const SignUp = () => {
         }
     }
 
-    
+
     //-----------------
 
     const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ export const SignUp = () => {
         setEmail(text);
     };
 
-    const handleUsernameChange = (text)=>{
+    const handleUsernameChange = (text) => {
         setUsername(text)
     }
 
@@ -51,7 +52,7 @@ export const SignUp = () => {
     return (
         <SafeAreaView style={styles.container}>
 
-            {isLoading &&(<Loader/>)}
+            {isLoading && (<Loader />)}
 
             <Text style={styles.title}>registrate</Text>
 
@@ -76,9 +77,9 @@ export const SignUp = () => {
                 style={styles.input}
             />
 
-            <Pressable style={styles.button} onPress={handleSignUp}>
-                <Text style={styles.text}>registrarse</Text>
-            </Pressable>
+            <CustomButton onPress={handleSignUp}>
+                registrarse
+            </CustomButton>
 
 
         </SafeAreaView>
@@ -96,8 +97,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         marginBottom: 20,
-        fontFamily:"Bungee-Regular",
-        color:"#d62828"
+        fontFamily: "Bungee-Regular",
+        color: "#d62828"
     },
     input: {
         width: '80%',
@@ -105,14 +106,5 @@ const styles = StyleSheet.create({
         margin: 10,
         backgroundColor: '#fff',
         borderRadius: 5,
-    },
-    button: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: '#d62828',
-        borderRadius: 5,
-    },
-    text: {
-        color: 'white',
     },
 })

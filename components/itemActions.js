@@ -7,6 +7,7 @@ import CustomToast from './alerts/customToast';
 
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../features/cartSlice';
+import { CustomButton } from './customButton';
 
 export default function ItemActions({product}) {
 
@@ -45,12 +46,14 @@ export default function ItemActions({product}) {
                     <AntDesign name="sharealt" size={24} color="black" />
                 </Pressable>
             </View>
-            <Pressable
-                style={styles.button}
-                onPress={ handleAddToCartPress }
-            >
-                <Text style={styles.buttonText}>Agregar al carrito</Text>
-            </Pressable>
+
+
+          <CustomButton onPress={handleAddToCartPress}>
+            Agregar al carrito
+          </CustomButton>
+
+
+
             <CustomToast
                 visible={toastVisible}
                 message={toastMessage}
@@ -65,17 +68,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-    },
-    button: {
-        backgroundColor: '#d62828',
-        margin: 16,
-        padding: 16,
-        borderRadius: 8,
-    },
-    buttonText: {
-        fontFamily: 'Roboto-Bold',
-        fontSize: 16,
-        color: '#fff',
     },
     secondaryButtons: {
         flexDirection: 'row',
