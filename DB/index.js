@@ -33,6 +33,5 @@ export const deleteSession = async () => {
 
 export const fetchSession = async () => {
   const firstRow = await db.getFirstAsync('SELECT * FROM sessions')
-  console.log("data : ", firstRow)
   return firstRow
 }
