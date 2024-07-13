@@ -1,4 +1,3 @@
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../firebase/database";
 
@@ -16,7 +15,6 @@ export const shopApi = createApi({
         getProductsByCategory: builder.query({
             query: (category) => `products.json?orderBy="category"&equalTo="${category}"`
         }),
-        //para cada recurso que queramos crear, modificar o eliminar en la bd (verbos http)
         postOrder: builder.mutation({
             query: order => ({
                 url: `orders.json`,
@@ -25,12 +23,11 @@ export const shopApi = createApi({
             })
         }),
         getOrders: builder.query({
-            query: user => `orders.json?orderBy="user"&equalTo="${user}"`// recibe elLocalId
+            query: user => `orders.json?orderBy="user"&equalTo="${user}"`
         }),
         getOrderById: builder.query({
             query: orderId => `orders/${orderId}.json`
-        })
-        ,
+        }),
         saveProfileImage: builder.mutation({
             query: ({ image, localId }) => ({
                 url: `profileImages/${localId}.json`,
@@ -42,23 +39,27 @@ export const shopApi = createApi({
             query: (localId) => `profileImages/${localId}.json`,
         }),
         addWishListItem: builder.mutation({
-            query: ({ currentWishlist, localId, productId }) => ({
-                url: `wishlist/${localId}/products/${productId}.json`,
+            query: ({ localId, product }) => ({
+                url: `wishlist/${localId}/products/${product.id}.json`,
                 method: "PUT",
-                body: { currentWishlist },
+                body: {
+                    id: product.id,
+                    img: product.img,
+                    price: product.price,
+                    brand: product.brand
+
+                },
             })
         }),
-        getWhishList: builder.query({
+        getWishList: builder.query({
             query: localId => `wishlist/${localId}/products.json`,
         }),
         deleteWishListItem: builder.mutation({
             query: ({ localId, productId }) => ({
                 url: `wishlist/${localId}/products/${productId}.json`,
                 method: 'DELETE',
-
             })
         })
-
     })
 });
 
@@ -71,6 +72,6 @@ export const {
     useSaveProfileImageMutation,
     useGetProfileImageQuery,
     useAddWishListItemMutation,
-    useGetWhishListQuery,
+    useGetWishListQuery,
+    useDeleteWishListItemMutation,
 } = shopApi;
-

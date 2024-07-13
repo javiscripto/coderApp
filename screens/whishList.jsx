@@ -1,21 +1,22 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {  useGetWhishListQuery } from '../services/shopService';
-import { useFocusEffect } from '@react-navigation/native';
+import {  useGetWishListQuery } from '../services/shopService';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { setWishList } from '../features/authSlice';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Loader from '../components/loader';
+import { WishListItem } from '../components/wishListItem';
 
 
 
 export const WishList = () => {
-
+    const {navigate}= useNavigation()
 
     const localId = useSelector(state => state.auth.value.user.localId);
     const currentWishList = useSelector(state => state.auth.value.wishlist);
 
-    const { data: whishList, isLoading, refetch } = useGetWhishListQuery(localId, { refetchOnFocus: true });
+    const { data: wishList, isLoading, refetch } = useGetWishListQuery(localId, { refetchOnFocus: true });
 
     const dispach = useDispatch();
 
@@ -28,10 +29,16 @@ export const WishList = () => {
 
 
     useEffect(() => {
-        if (whishList) {
-            dispach(setWishList(whishList));
+        if (wishList) {
+            dispach(setWishList(wishList));
         }
-    }, [whishList, dispach])
+    }, [wishList, dispach])
+
+
+
+    const goToItemDetail = (productId) => {
+        navigate("ItemDetail", { productId });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -50,7 +57,12 @@ export const WishList = () => {
                             <Text style={styles.itemText}>tu lista de favoritos esta vacía</Text>
                         }
 
-                    // renderItem
+                        renderItem={({ item }) => (
+                            <WishListItem
+                                {...item}
+                                onPress={() => goToItemDetail(item.id)}
+                            />
+                        )}
 
 
 
@@ -77,6 +89,7 @@ const styles = StyleSheet.create({
     },
     flatList: {
         padding: 16,
+        margin:16,
     },
     itemContainer: {
         padding: 16,
