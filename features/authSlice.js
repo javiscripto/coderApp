@@ -44,6 +44,10 @@ export const authSlice = createSlice({
       }));
       state.value.wishlist=whishListArray;
     },
+    deleteWishlistItem: (state, action) => {
+      const productIdDelete = action.payload;
+      state.value.wishlist = state.value.wishlist.filter(item => item.id !== productIdDelete);
+    },
     clearUser: (state) => {
       state.value = {
         user: {
@@ -60,6 +64,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUser, setProfileImage, setUserPhoto, setOrders, setWishList, clearUser } = authSlice.actions;
+export const { setUser, setProfileImage, setUserPhoto, setOrders, setWishList, deleteWishlistItem , clearUser } = authSlice.actions;
 
 export default authSlice.reducer;
