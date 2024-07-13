@@ -11,6 +11,7 @@ export const authSlice = createSlice({
         photo: null,
       },
       orders: [],
+      wishlist:[], 
       token: null,
       profileImage: null,
     },
@@ -36,6 +37,13 @@ export const authSlice = createSlice({
         }));
         state.value.orders = ordersArray;
       },
+    setWishList : (state, action)=>{
+      const whishListArray= Object.entries(action.payload).map(([key, value])=>({
+        id:key,
+        ...value
+      }));
+      state.value.wishlist=whishListArray;
+    },
     clearUser: (state) => {
       state.value = {
         user: {
@@ -52,6 +60,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUser, setProfileImage, setUserPhoto, setOrders, clearUser } = authSlice.actions;
+export const { setUser, setProfileImage, setUserPhoto, setOrders, setWishList, clearUser } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -5,7 +5,7 @@ import { baseUrl } from "../firebase/database";
 export const shopApi = createApi({
     reducerPath: 'shopApi',
     baseQuery: fetchBaseQuery({ baseUrl }),
-    refetchOnFocus:true,
+    refetchOnFocus: true,
     endpoints: (builder) => ({
         getProducts: builder.query({
             query: () => "products.json"
@@ -24,11 +24,11 @@ export const shopApi = createApi({
                 body: order,
             })
         }),
-        getOrders:builder.query({
-            query:user=>`orders.json?orderBy="user"&equalTo="${user}"`// recibe elLocalId
+        getOrders: builder.query({
+            query: user => `orders.json?orderBy="user"&equalTo="${user}"`// recibe elLocalId
         }),
-        getOrderById:builder.query({
-            query:orderId=>`orders/${orderId}.json`
+        getOrderById: builder.query({
+            query: orderId => `orders/${orderId}.json`
         })
         ,
         saveProfileImage: builder.mutation({
@@ -41,6 +41,23 @@ export const shopApi = createApi({
         getProfileImage: builder.query({
             query: (localId) => `profileImages/${localId}.json`,
         }),
+        addWishListItem: builder.mutation({
+            query: ({ currentWishlist, localId, productId }) => ({
+                url: `wishlist/${localId}/products/${productId}.json`,
+                method: "PUT",
+                body: { currentWishlist },
+            })
+        }),
+        getWhishList: builder.query({
+            query: localId => `wishlist/${localId}/products.json`,
+        }),
+        deleteWishListItem: builder.mutation({
+            query: ({ localId, productId }) => ({
+                url: `wishlist/${localId}/products/${productId}.json`,
+                method: 'DELETE',
+
+            })
+        })
 
     })
 });
@@ -52,5 +69,8 @@ export const {
     usePostOrderMutation,
     useGetOrdersQuery,
     useSaveProfileImageMutation,
-    useGetProfileImageQuery } = shopApi;
+    useGetProfileImageQuery,
+    useAddWishListItemMutation,
+    useGetWhishListQuery,
+} = shopApi;
 

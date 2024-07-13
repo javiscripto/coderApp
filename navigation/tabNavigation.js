@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo } from '@expo/vector-icons';
-import Home from "../screens/home";
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+
 import ShopStack from "../screens/shopStack";
 import CartStack from "../screens/cartStack";
 import ProfileStack from "../screens/profileStack";
@@ -8,6 +9,7 @@ import { useSelector } from "react-redux";
 import { StyleSheet, Image } from "react-native";
 import React from 'react';
 import {OrderList} from "../screens/orderList";
+import { WishList } from "../screens/whishList";
 
 
 const Tab = createBottomTabNavigator();
@@ -33,7 +35,10 @@ export const TabNavigation = () => {
                         iconName="list"
                     } else if (route.name === "carrito") {
                         iconName = "shopping-cart";
-                    } else if (route.name === "cuenta") {
+                    } else if (route.name === "deseos") {
+                        return <FontAwesome6 name="bolt" size={24} color={iconColor} />
+                    }
+                    else if (route.name === "cuenta"){
                         if(profileImage){
                             return(
                                 <Image source={{ uri: profileImage }} style={styles.img} />
@@ -53,6 +58,7 @@ export const TabNavigation = () => {
             <Tab.Screen name="Tienda" component={ShopStack} />
             <Tab.Screen name="carrito" component={CartStack} />
             <Tab.Screen name="ordenes" component={OrderList}/>
+            <Tab.Screen name="deseos" component={WishList}  />
             <Tab.Screen name="cuenta" component={ProfileStack} />
 
         </Tab.Navigator>
