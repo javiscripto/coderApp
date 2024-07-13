@@ -4,6 +4,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { useDeleteWishListItemMutation } from '../services/shopService';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteWishlistItem } from '../features/authSlice';
+import Loader from './loader';
 
 
 export const WishListItem = ({ id, img, brand, price, onPress }) => {
@@ -24,6 +25,11 @@ export const WishListItem = ({ id, img, brand, price, onPress }) => {
 
 
     return (
+        <>
+        
+        {isLoading&&(<Loader/>)}
+        
+        
         <Pressable style={styles.itemContainer} onPress={onPress} >
             <Image source={{ uri: img }} style={styles.img} />
 
@@ -39,6 +45,7 @@ export const WishListItem = ({ id, img, brand, price, onPress }) => {
 
 
         </Pressable>
+        </>
     )
 };
 
