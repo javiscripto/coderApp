@@ -5,47 +5,72 @@ import { useSignUpMutation } from "../services/authService";
 import { useNavigation } from "@react-navigation/native";
 import { Loader } from "../components/loader"
 import { CustomButton } from "../components/customButton";
+import { signupSchema } from "../validations/signUpSchema";
+import { Input } from "../components/input";
 
 
 
 export const SignUp = () => {
 
+
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState(``);
+
+    const [errorEmail, setErrorEmail] = useState('')
+    const [errorPassword, setErrorPassword] = useState('')
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState('')
+
     //crear usuarios
     const { navigate } = useNavigation()
     const [trigerSignUp, { isLoading }] = useSignUpMutation();
 
+
+
+
+
     const handleSignUp = async () => {
         try {
+            setErrorEmail('');
+            setErrorPassword('');
+            setErrorConfirmPassword('');
+            
+            await signupSchema.validate({
+                email,
+                password,
+                confirmPassword
+            })
+
+
+
             const payload = await trigerSignUp({ email: email.trim().toLowerCase(), password, displayName: username });
             //ir a login despues de registrarse
             navigate("login");
 
 
         } catch (error) {
+            if (error.name === 'ValidationError') {
+                switch (error.path) {
+                    case 'email':
+                        setErrorEmail(error.message)
+                        break
+                    case 'password':
+                        setErrorPassword(error.message)
+                        break
+                    case 'confirmPassword':
+                        setErrorConfirmPassword(error.message)
+                        break
+                    default:
+                        break
+                }
+            }
             console.error(`ha ocurrido un error : ${error}`)
         }
     }
 
 
     //-----------------
-
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleEmailChange = (text) => {
-        setEmail(text);
-    };
-
-    const handleUsernameChange = (text) => {
-        setUsername(text)
-    }
-
-    const handlePasswordChange = (text) => {
-        setPassword(text);
-    };
-
-
 
 
 
@@ -56,28 +81,40 @@ export const SignUp = () => {
 
             <Text style={styles.title}>registrate</Text>
 
-            <TextInput
-                placeholder="nombre de usuario"
-                onChangeText={handleUsernameChange}
+            <Input
+
+                label="ingresa tu nombre de usuario"
+                placeholder="someOne example"
+                onChangeText={setUsername}
                 value={username}
-                style={styles.input}
+
             />
 
-            <TextInput
-                placeholder="correo electronico"
-                onChangeText={handleEmailChange}
+            <Input
+                label="ingresa tu email"
+                error={errorEmail}
+                placeholder="example@mail.com"
+                onChangeText={setEmail}
                 value={email}
-                style={styles.input}
             />
-            <TextInput
-                placeholder="contraseña"
-                onChangeText={handlePasswordChange}
+            <Input
+                label="ingresa tu contraseña"
+                error={errorPassword}
+                placeholder="********"
+                onChangeText={setPassword}
                 value={password}
                 secureTextEntry
-                style={styles.input}
+            />
+            <Input
+                label="confirma tu contraseña"
+                error={errorConfirmPassword}
+                placeholder="********"
+                onChangeText={setConfirmPassword}
+                value={confirmPassword}
+                secureTextEntry
             />
 
-            <CustomButton onPress={handleSignUp}>
+            <CustomButton onPress={() => handleSignUp()}>
                 registrarse
             </CustomButton>
 
@@ -100,11 +137,5 @@ const styles = StyleSheet.create({
         fontFamily: "Bungee-Regular",
         color: "#d62828"
     },
-    input: {
-        width: '80%',
-        padding: 10,
-        margin: 10,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-    },
+
 })
