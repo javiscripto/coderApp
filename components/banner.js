@@ -2,15 +2,16 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 
 
-export const Banner = () => {
+export const Banner = ({children}) => {
     return (
         <ImageBackground
             source={require(`../assets/img/guitarBackground.jpg`)}
             resizeMode='cover'
             style={styles.img}
         >
+            <Text style={styles.text}>{children}</Text>
             <View style={styles.banner} >
-                <Text style={styles.title} > la buena vibra esta en tus manos </Text>
+                <Text style={styles.title} > La buena vibra esta en tus manos </Text>
             </View>
         
         </ImageBackground>
@@ -19,7 +20,8 @@ export const Banner = () => {
 
 const styles= StyleSheet.create({
     img:{
-        height:300
+        height:300,
+        padding:32
     },
     banner: {
         alignItems: 'center',
@@ -36,5 +38,9 @@ const styles= StyleSheet.create({
         fontSize:40,
         textAlign:"center",
         
+    },
+    text:{
+        color:"#fff",
+        fontFamily:"Roboto-Bold"
     }
 })
