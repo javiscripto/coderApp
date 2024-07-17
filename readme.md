@@ -4,13 +4,23 @@
 ## indice
 
 1. [descripción](#descripción)
-2. [instalación](#instalación)
-3. [Correr la Aplicación](#correr-la-aplicación)
-4. [Uso](#uso)
+2. [dependencias](#principales-dependencias-utilizadas)
+3. [instalación](#instalación)
+4. [Correr la Aplicación](#correr-la-aplicación)
+5. [Uso](#uso)
 
 ## descripción
 
-Guitar store es una aplicación movil desarrollada con react native y el framework expo go.En sistesis, es la base para una aplicación de eComerce con lógica de compras(agregar al carrito, comprar y obtener la orden de compra; agregar productos a favoritos; registro e inicio de sesión y carga de una foto de perfil de usuario)
+Guitar store es una aplicación movil desarrollada con react native y expo.En sistesis, es la base para una aplicación de eComerce con lógica de compras(agregar al carrito, comprar y obtener la orden de compra; agregar productos a favoritos; registro e inicio de sesión y carga de una foto de perfil de usuario)
+
+## principales dependencias utilizadas 
+- **React/React native** : framework para el desarrollo de aplicaciones móviles.
+- **"expo": "~51.0.9"** : plataforma de código abierto para la ejecucion y compilacion de aplicaciones React native.
+- **expo-image-picker** : biblioteca que permite acceder a la interfaz de usuario del sistema para acceder a la galeria o tomar una fotografía.
+- **"@react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs** :  dependencias para la navegacion entre las distintas pantallas de la aplicación.
+- **expo-sqlite** : ligera dependencia utilizada para la persistencia local en lenguaje SQL. 
+- **react-redux** : dependencia utilizada para la gestión del estado global de la aplicación.
+- **@reduxjs/toolkit** : conjunto de herramientas para simplificar la configuración de un proyecto que trabaje con una aplicación que utilice redux. En nuestro caso, la utilizaremos la creación de los slices y para comunicarnos con nuestra base de datos RTDB   
 
 
 ## instalación 
@@ -21,6 +31,9 @@ cd coderApp
 npm install
 
 ```
+
+
+
 ## correr la aplicacion:
 
 Para correr la aplicación puedes hacerlo simplemente con  
