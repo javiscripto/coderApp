@@ -6,6 +6,8 @@ import { clearUser, setProfileImage, setUserPhoto } from '../features/authSlice'
 import { useSaveProfileImageMutation } from '../services/shopService';
 import { useNavigation } from '@react-navigation/native';
 import { CustomButton } from '../components/customButton';
+import Profile from '../assets/icons/profile';
+
 
 export default function ImageSelector() {
     const [image, setImage] = useState(null);
@@ -77,11 +79,12 @@ export default function ImageSelector() {
             ) : (
                 <>
                     <View style={styles.secondaryContainer}>
-                        <Text>no hay una foto</Text>
+                        <Profile/>
+                        <Text>no hay una foto :c </Text>
                     </View>
-                    <Pressable style={styles.button} onPress={pickImage}>
-                        <Text style={styles.buttonText}>tomar una foto</Text>
-                    </Pressable>
+                    <CustomButton onPress={pickImage}>
+                        Tomar una foto
+                    </CustomButton>
                 </>
             )}
         </View>
