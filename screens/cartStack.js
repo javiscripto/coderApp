@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
   total: {
     flexDirection: "row",
     gap: 16,
+    margin:16,
     alignItems: "center",
     alignSelf: "auto",
   },
