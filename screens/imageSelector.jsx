@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, Pressable, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearUser, setProfileImage, setUserPhoto } from '../features/authSlice';
+import { clearUser, setUserPhoto } from '../features/authSlice';
 import { useSaveProfileImageMutation } from '../services/shopService';
 import { useNavigation } from '@react-navigation/native';
 import { CustomButton } from '../components/customButton';
@@ -51,15 +51,15 @@ export default function ImageSelector() {
     const verifyPermissions = async () => {
         const { granted } = await ImagePicker.requestCameraPermissionsAsync()
         if (!granted) {
-          Alert.alert(
-            'Permisos insuficientes',
-            'Necesitas dar permisos para usar la cámara',
-            [{ text: 'Ok' }]
-          )
-          return false
+            Alert.alert(
+                'Permisos insuficientes',
+                'Necesitas dar permisos para usar la cámara',
+                [{ text: 'Ok' }]
+            )
+            return false
         }
         return true
-      }
+    }
 
     const confirmImage = async () => {
         try {
@@ -75,10 +75,6 @@ export default function ImageSelector() {
 
     return (
         <View style={styles.container}>
-            <Text>usuario: {userName}</Text>
-            <Pressable style={styles.logout} onPress={handleLogout}>
-                <Text style={styles.logout}>logout</Text>
-            </Pressable>
             {image ? (
                 <View style={styles.container}>
                     <Image source={{ uri: image }} style={styles.img} />
@@ -94,7 +90,7 @@ export default function ImageSelector() {
             ) : (
                 <>
                     <View style={styles.secondaryContainer}>
-                        <Profile/>
+                        <Profile />
                         <Text>no hay una foto :c </Text>
                     </View>
                     <CustomButton onPress={pickImage}>
@@ -112,10 +108,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         gap: 8,
-    },
-    logout: {
-        color: "grey",
-        textDecorationLine: "underline",
     },
     img: {
         width: 200,
