@@ -35,7 +35,7 @@ export const TabNavigation = () => {
                         iconName="list"
                     } else if (route.name === "carrito") {
                         iconName = "shopping-cart";
-                    } else if (route.name === "deseos") {
+                    } else if (route.name === "favoritos") {
                         return <FontAwesome6 name="bolt" size={24} color={iconColor} />
                     }
                     else if (route.name === "cuenta"){
@@ -58,7 +58,7 @@ export const TabNavigation = () => {
             <Tab.Screen name="Tienda" component={ShopStack} />
             <Tab.Screen name="carrito" component={CartStack} />
             <Tab.Screen name="ordenes" component={OrderList}/>
-            <Tab.Screen name="deseos" component={WishList}  />
+            <Tab.Screen name="favoritos" component={WishList}  />
             <Tab.Screen name="cuenta" component={ProfileStack} />
 
         </Tab.Navigator>
