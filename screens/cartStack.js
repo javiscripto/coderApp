@@ -39,29 +39,23 @@ function CartStack() {
 
   //----------------
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Text style={styles.title}>carrito de compras</Text>
-      {cart.length === 0 ? (
-        <View style={styles.cart}>
-          <Text style={styles.text}>Tu carrito está vacío :c</Text>
-        </View>
-      ) : (
-        <View style={styles.cart}>
+    <SafeAreaView style={styles.container}>
+        {isLoading?(<Loader/>)
+        :(<View style={styles.cart}>
 
-          {isLoading && (
-            <Loader />
-          )}
-
+          <Text style={styles.title}>carrito de compras</Text>
           <FlatList
             contentContainerStyle={styles.flatlist}
             data={cart}
             keyExtractor={item => item.id}
             renderItem={({ item }) => <CartItem {...item} />}
+            ListEmptyComponent={<View >
+          <Text >Tu carrito está vacío :c</Text>
+        </View>}
           />
 
-
           <View style={styles.total}>
-            <Text>
+            <Text style={styles.text}>
               Total:
             </Text>
             <Text >
@@ -76,15 +70,20 @@ function CartStack() {
           </View>
 
         </View>
-
-      )}
+)}
+      
     </SafeAreaView>
-  );
+  )
 }
 
 export default CartStack;
 
 const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+},
   cart: {
     flex: 1,
     justifyContent: 'center',
@@ -93,13 +92,14 @@ const styles = StyleSheet.create({
     gap: 16
   },
   title: {
-    fontFamily: 'Roboto-Black',
-    fontSize: 32,
+    fontFamily: 'Roboto-Bold',
+    fontWeight:"bold",
+    fontSize: 24,
     textAlign: "center"
 
   },
   text: {
-
+    fontFamily:"Roboto-Bold"
   },
   header: {
     flexDirection: 'row',
@@ -109,6 +109,8 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     gap: 16,
+    margin:16,
+    padding:16,
   },
   total: {
     flexDirection: "row",
