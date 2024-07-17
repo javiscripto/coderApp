@@ -31,6 +31,7 @@ function CartStack() {
     if (response.data) {
       dispatch(deleteCart());
       dispatch(setOrders(response.data))
+      Alert.alert(`orden enviada!`, `se ha registrado la orden, revisa la pestaña "ordenes"`)
     } else {
       console.error('Error al confirmar la orden');
     }
@@ -40,8 +41,8 @@ function CartStack() {
   //----------------
   return (
     <SafeAreaView style={styles.container}>
-        {isLoading?(<Loader/>)
-        :(<View style={styles.cart}>
+      {isLoading ? (<Loader />)
+        : (<View style={styles.cart}>
 
           <Text style={styles.title}>carrito de compras</Text>
           <FlatList
@@ -50,28 +51,29 @@ function CartStack() {
             keyExtractor={item => item.id}
             renderItem={({ item }) => <CartItem {...item} />}
             ListEmptyComponent={<View >
-          <Text >Tu carrito está vacío :c</Text>
-        </View>}
+              <Text >Tu carrito está vacío :c</Text>
+            </View>}
           />
 
-          <View style={styles.total}>
-            <Text style={styles.text}>
-              Total:
-            </Text>
-            <Text >
-              ${total}
-            </Text>
-            {cart.length > 0 && (
+
+          {cart.length > 0 && (
+            <View style={styles.total}>
+              <Text style={styles.text}>
+                Total:
+              </Text>
+              <Text >
+                ${total}
+              </Text>
               <CustomButton onPress={handlerConfirmOrderPress}>
                 confirmar compra
               </CustomButton>
-            )}
+            </View>
+          )}
 
-          </View>
 
         </View>
-)}
-      
+        )}
+
     </SafeAreaView>
   )
 }
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-},
+  },
   cart: {
     flex: 1,
     justifyContent: 'center',
@@ -93,13 +95,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Roboto-Bold',
-    fontWeight:"bold",
+    fontWeight: "bold",
     fontSize: 24,
     textAlign: "center"
 
   },
   text: {
-    fontFamily:"Roboto-Bold"
+    fontFamily: "Roboto-Bold"
   },
   header: {
     flexDirection: 'row',
@@ -109,13 +111,13 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     gap: 16,
-    margin:16,
-    padding:16,
+    margin: 16,
+    padding: 16,
   },
   total: {
     flexDirection: "row",
     gap: 16,
-    margin:16,
+    margin: 16,
     alignItems: "center",
     alignSelf: "auto",
   },
