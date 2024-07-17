@@ -30,6 +30,8 @@ export default function ImageSelector() {
 
     const pickImage = async () => {
         try {
+            const hasPermission = await verifyPermissions()
+            if (!hasPermission) return
             let result = await ImagePicker.launchCameraAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
                 allowsEditing: true,
@@ -45,6 +47,19 @@ export default function ImageSelector() {
             console.error("error :", error);
         }
     };
+
+    const verifyPermissions = async () => {
+        const { granted } = await ImagePicker.requestCameraPermissionsAsync()
+        if (!granted) {
+          Alert.alert(
+            'Permisos insuficientes',
+            'Necesitas dar permisos para usar la cámara',
+            [{ text: 'Ok' }]
+          )
+          return false
+        }
+        return true
+      }
 
     const confirmImage = async () => {
         try {
